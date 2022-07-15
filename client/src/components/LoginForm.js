@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Button, Error, Input, FormField, Label } from "../styles";
-
+import LogInNav from "./LogInNav"
+import "../styles/home.css"
 function LoginForm({ onLogin }) {
+
+
+ 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -27,7 +31,13 @@ function LoginForm({ onLogin }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
+     <div className="video-container">
+    <iframe  src="https://www.youtube.com/embed/5i2HRp5C1yY? 
+    &autoplay=1&mute=1&playlist=5i2HRp5C1yY&loop=1" >
+       </iframe>
+       </div>
+    <form onSubmit={handleSubmit} id="form">
       <FormField>
         <Label htmlFor="username">Username</Label>
         <Input
@@ -54,11 +64,13 @@ function LoginForm({ onLogin }) {
         </Button>
       </FormField>
       <FormField>
-        {errors.map((err) => (
-          <Error key={err}>{err}</Error>
-        ))}
+        <h5>{errors}</h5>
       </FormField>
     </form>
+   
+   
+       </>
+   
   );
 }
 

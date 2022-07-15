@@ -5,25 +5,30 @@ import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
 function NewRecipe({ user }) {
-  const [title, setTitle] = useState("My Awesome Recipe");
-  const [minutesToComplete, setMinutesToComplete] = useState("30");
-  const [instructions, setInstructions] = useState(`Here's how you make it.
-  
-## Ingredients
+  const [teacher_id, setTeacher_id] = useState("1");
+  const [minutesToComplete, setMinutesToComplete] = useState("3");
+  const [instructions, setInstructions] = useState(`Tell us your truth!
 
-- 1c Sugar
-- 1c Spice
+## Class Dynamic
+-
 
-## Instructions
+## Attitude
+-
 
-**Mix** sugar and spice. _Bake_ for 30 minutes.
+## Grading
+-
+
+
   `);
+
+
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
+    console.log(teacher_id)
     setIsLoading(true);
     fetch("/recipes", {
       method: "POST",
@@ -31,9 +36,11 @@ function NewRecipe({ user }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title,
-        instructions,
+        teacher_id: teacher_id,
+        instructions: instructions,
         minutes_to_complete: minutesToComplete,
+        
+      
       }),
     }).then((r) => {
       setIsLoading(false);
@@ -42,25 +49,27 @@ function NewRecipe({ user }) {
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
-    });
-  }
+    });}
 
   return (
     <Wrapper>
       <WrapperChild>
-        <h2>Create Recipe</h2>
+        <h2>Post Review</h2>
         <form onSubmit={handleSubmit}>
           <FormField>
-            <Label htmlFor="title">Title</Label>
-            <Input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
+          <select value={teacher_id} onChange={(e) => setTeacher_id(e.target.value)}>
+           <option value="1">Paul Schmitz</option>
+           <option value="2">Sasha Vivelo	</option>
+           <option value="3"> Jorda Escobar</option>
+           <option value="4">Joseph Weintraub</option>
+           <option value="5"> Shay Blanchette</option>
+           <option value="6">Zhi Li</option>
+           <option value="7">John Hodge</option>
+         </select>
           </FormField>
+
           <FormField>
-            <Label htmlFor="minutesToComplete">Minutes to complete</Label>
+            <Label htmlFor="minutesToComplete">Rating</Label>
             <Input
               type="number"
               id="minutesToComplete"
@@ -69,7 +78,7 @@ function NewRecipe({ user }) {
             />
           </FormField>
           <FormField>
-            <Label htmlFor="instructions">Instructions</Label>
+            <Label htmlFor="instructions">Description</Label>
             <Textarea
               id="instructions"
               rows="10"
@@ -90,9 +99,8 @@ function NewRecipe({ user }) {
         </form>
       </WrapperChild>
       <WrapperChild>
-        <h1>{title}</h1>
         <p>
-          <em>Time to Complete: {minutesToComplete} minutes</em>
+          <em>Rating {minutesToComplete} </em>
           &nbsp;·&nbsp;
           <cite>By {user.username}</cite>
         </p>

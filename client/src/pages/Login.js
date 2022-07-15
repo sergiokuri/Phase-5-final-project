@@ -9,16 +9,17 @@ function Login({ onLogin }) {
 
   return (
     <Wrapper>
-      <Logo>Reciplease</Logo>
+      <Logo></Logo>
+     
+
+
       {showLogin ? (
         <>
+
           <LoginForm onLogin={onLogin} />
           <Divider />
           <p>
-            Don't have an account? &nbsp;
-            <Button color="secondary" onClick={() => setShowLogin(false)}>
-              Sign Up
-            </Button>
+         
           </p>
         </>
       ) : (
@@ -40,7 +41,7 @@ function Login({ onLogin }) {
 const Logo = styled.h1`
   font-family: "Permanent Marker", cursive;
   font-size: 3rem;
-  color: deeppink;
+  color: grey;
   margin: 8px 0 16px;
 `;
 

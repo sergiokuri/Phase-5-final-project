@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 
-function RecipeList() {
+function RecipeList({recipe}) {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     fetch("/recipes")
       .then((r) => r.json())
-      .then(setRecipes);
+      .then((data) => setRecipes(data));
   }, []);
+
+  console.log(recipes)
 
   return (
     <Wrapper>
@@ -21,8 +23,9 @@ function RecipeList() {
             <Box>
               <h2>{recipe.title}</h2>
               <p>
-                <em>Time to Complete: {recipe.minutes_to_complete} minutes</em>
+                <em>Rating {recipe.minutes_to_complete} </em>
                 &nbsp;·&nbsp;
+                
                 <cite>By {recipe.user.username}</cite>
               </p>
               <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
